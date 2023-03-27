@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>변수 선언하기</h1>
+</body>
+</html>
+<script>
+    //자바스크립트는 변수를 선언할 필요가 없다. 
+    a = 10;
+    console.log(a);
+    //var을 안 써도 심지어 돌아간다. 자바스크립트는
+    var a;
+    console.log(a);
+    //이 a가 같은 걸로 컴파일러는 이해해버린다. 
+    for(i=1; i<10; i++){
+        var a; //심지어 여기의 a도 전부다 a로 이해해버림. 선언하든 말든 앞에서 선언되었으니 그대로 돌아가버림. 
+        a+=i;
+    }
+    console.log(a);
+
+    //특정범위도 아니고 위에 선언되었으면 계속 또 쓰고 또 쓰고 또 쓰는 현상이 생긴다. 그게 바로 호이스팅. 
+    // 왜 얘는 명확하지가 않은 거지? 불명확성 때문에 스트레스를 받는다. 
+    //for문이나 if문에 되더라도.  이런 것이 싫어서 나온 것이 let이다. 
+</script>
