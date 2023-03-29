@@ -16,8 +16,10 @@
     Weekly Working Hours : <input type = "text" name = "weeklyWorkingHours" id="weeklyWorkingHours" > <br/>
     Hourly Wages : <input type = "text" name = "hourlyWage" id="hourlyWage"> <br/>  
     result2 : <button type = "result2" onclick="calculateYourSalary()" id="result2"> Calculate your salary </button><br/>
+    Clear all : <button type = "clearAll" onclick= "goClear()" id="clear"> Clear All! </button><br/>
     Your calculated Wage : <span type = "outcome2" id="outcome2"></span><br/>
     How can I calculate your Salary : <span type="outcome3" id="outcome3"></span><br/>
+
 </body>
 </html>
 <script>
@@ -46,10 +48,14 @@
         weeklySalary = (weeklyWorkingHours * hourlyWage) + (excessiveWorkingHours * hourlyWage * 0.5);
         //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
         document.getElementById("outcome2").innerHTML = weeklySalary;
-        document.getElementById("outcome3").innerHTML = `<br/> (1) (Weekly Working Hours : ${weeklyWorkingHours} X Your hourly wage${hourlyWage} ) <br/>
+        document.getElementById("outcome3").innerHTML = `<br/> (1) Weekly Working Hours : ${weeklyWorkingHours} X Your hourly wage${hourlyWage} = ${weeklyWorkingHours * hourlyWage} <br/>
                                         *Plus, if you work more than 20 hours then, remind that you earn 50% more excessive working wages <br/>
-                                        (2) ExcessiveWorkingWage = ${excessiveWorkingHours} *${hourlyWage} * 0.5 <br/>
-                                        <b>(1) + (2) = ${weeklySalary}</b>`;
+                                        (2) ExcessiveWorkingWage = ${excessiveWorkingHours} *${hourlyWage} X 50 %  = ${excessiveWorkingHours * hourlyWage * 0.5} <br/>
+                                        <b>(1) ${weeklyWorkingHours * hourlyWage} + (2) ${excessiveWorkingHours * hourlyWage * 0.5} = ${weeklySalary}</b>`;
+    }
+    function goClear(){
+        document.getElementById("outcome2").innerHTML = '';
+        document.getElementById("outcome3").innerHTML = '';
     }
 
 </script>
