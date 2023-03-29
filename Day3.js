@@ -2,6 +2,7 @@
 //<><><><><><><><>DAY 3 ***************************************************
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+//이벤트 핸들러
 
 //<html>
 //Input type = submit .. 무조건 서버로 어보를 전송한다. 
@@ -40,6 +41,9 @@
         //     alert("third button");
         //      });
     // } // end of window.onload
+
+
+
 
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&콜백함수와 람다식(화살표함수) + 정렬까지!!!!!  &&&&&&&&&&&&
@@ -84,12 +88,17 @@ let rect = [
     {w : 45, h:44}
 ];
 
-let r = rect.map((r)=>{
-    r.len = (r.w + r.h)*2 ;
-    r.surface = r.w*r.h;
-    return r;
-});
-console.log(r);
+// let r = rect.map((r)=>{
+//     r.len = (r.w + r.h)*2 ;
+//     r.surface = r.w*r.h;
+//     return r;
+// });
+// console.log(r);
+
+// 2:44 PM
+// rect에 정의된 JSON을 let r로 다시 가져오면서 수정을 하는데
+// 2:45 PM
+// 그럼 rect에 정의돼있던 JSON값이 바뀌어버리는것
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&배열을 다루는 방법 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
@@ -342,10 +351,218 @@ let result = a(); // undefined로 출력함... 해당 값은 void로 받음.. �
 //            // 아직 데이터를 저장할 공간은 없다. 
 // p1 = new Person(); 힙공간에 Person 객체를 생성하고 생성한 객체의 첫번째 주소값을 p1에 할당한다. 
 //            // 만일 메모리가 부족해서 객체 생성을 못할 경우에는 null로 채워진다. 
+//              앞의 객체는 참조하는 변수가 없으면 garbage collector(gc)가 메모리가 부족할 때 수거를 해간다. 
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&  &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+// 
+
+// 래퍼클래스(Wrapper Class) : 값 타입을 객체로 전환해야할 때가 있는데, int --> Integer . 값타입을 객체로 전환시키는 클래스임. 
+// ex. Integer, Long, 등등
+// List<Integer> list = new ArrayList <Integer> (); 
+// list 에 들어가는 요소들도 다 int값이 아니고, Integer라는 객체임. 
+
+// 이를 전문 용어로 박싱이라고 합니다. 값 타입을 Integer로 래핑해주는 경우 값타입을 참조변수타입으로 바꿔줘야할 때를 박싱이라고 하고
+// 다시 참조타입변수를 값 타입으로 바꿔줄 때를 언박싱이라고 합니다. 
+// 이것이 자바다. 뒤의 것은 안봐도 앞에 1권만 보세요.. 설명을 제 취향대로 해놓았다. 1권만 보세요. 
+// 램이 부족해도 SSD의 가상메모리를 불러올 수가 있습니다. 즉, 램이 부족해도 SSD의 일부를 가져온다. 
+
+//static이라고 붙어있는 것들은 다 static으로 들어감. static도 잘 쓰면 프로그램도 대우 간단해지고 명확해짐. 
+// 프로그램의 언어는 각자 적절한 단어가 있다. 이 개념이 여기에 들어가는 게 맞는 건지를 계속 고민해야한다. 
+// 괜히 뭔가를 배웠다고 그게 필요가 없는 경우에는 쓰면 안된다. 배웠다고 뭔가를 쓰면 안된다. 
+// 자바 프로그래머들이 편하게 만들려고 코드를 만든 것임. 
+
+// 람다(꽃) => 스파크, 안드로이드(코틀린)
+
+
+let r = rect.map((r)=> {
+    r.len = (r.w + r.h) *2;
+    r.surface = r.w*r.h;
+    return r;
+});
+
+//아직 자바는 배열을 한번에 내보내지 못함. console.log는 한번에 내보낼 수 있음. 
+
+
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&과제 함께 풀이&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+// 
+
+
+// 과제는 JavaScript과제로 올립니다. HTML로 검증완료...
+let employeeData = [
+    {name : "홍길동", hour : 40, hourlyWage : 100000},
+    {name : "임꺽정", hour : 15, hourlyWage : 200000},
+    {name : "장길산", hour : 20, hourlyWage : 200000},
+    {name : "강감찬", hour : 30, hourlyWage : 150000},
+    {name : "이순신", hour : 40, hourlyWage : 300000},
+];
+
+let cnt = 0;
+let sum = 0;
+
+employeeData.forEach( (e)=> {
+    cnt++;
+    sum += (e.hourlyWage) * (e.hour);
+    console.log(`이름 : ${e.name}, 근무시간 : ${e.hour}, 시간당급여액 : ${e.hourlyWage}, 
+    총액 : ${e.totalSalary = e.hourlyWage * e.hour}`);
+});
+
+let average = sum/cnt;
+console.log(`위 ${cnt}분의 평균은 다음과 같습니다. : ${average}`);//검증오나료 : 수기계산시 다음과 똑같음. 
+
+//강사님 풀이방법은...
+
+let s = [
+    {name : "hong", kor : 90, eng : 80, mat : 70},
+    {name : "kang", kor : 90, eng : 80, mat : 70},
+    {name : "jang", kor : 90, eng : 80, mat : 70},
+    {name : "lim", kor : 90, eng : 80, mat : 70},
+    {name : "choi", kor : 90, eng : 80, mat : 70}
+];
+
+s.map((item) =>{
+    item.total = item.kor = item.mat + item.eng;
+    item.avg = item.total / 3;
+    return item;
+}).forEach((item)=>{
+    console.log(`${item.name} ${item.total} ${item.avg}`);
+})
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&<DOM>&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+// 
+/// w3schools.com 에 CSS와 JavaScript를 많이 씁니다. 
+
+// 색을 다룰 때 자주 쓰이는 RGB는 8비트 왜냐면
+// R 1바이트 G 1바이트 B 1바이트  여기에 추가해서 투명도를 0과 1로 나타내는 경우도 있다. 
+// 2의 3승 ==> 8비트인데...a
+
+// 111111
+// 000000 인데...a
+// FF1111 이면, 빨강을 다 채우라는 것이기 때문에 빨강 원색이다. 
 
 
 
 
+//모든 태그는 id 속성이나 class속성을 가질 수 있지만, 하나의 페이지 html페이지에 하나의 id만 가져와야한다. 
+// 자바스크립트할 때 못 쓸 뿐이지 출력은 된다. (html 렌더링은 된다. 자바스크립트로 객체 제어가 안된다. )
+// input 태그류는 name 속성을 갖고, 서버로 값을 전달할 때 name 속성을 사용합니다. 
+// 이벤트란 브라우저에서 일어나는 모든 동작들을 말하는데, 다시 말하지만 이건 이미 다 정의가 되어있다. 
+// 예를 들어서, 버튼을 누르거나 키보드를 누르거나 마우스를 클릭하거나 드래그 하는 것과 같은 동작들을 이벤트라고 하고
+// 각 이벤트마다 기본처리동작이 이미 정의되어있기 때문에 이를 가로채서 다른 동작 제어를 하는 것이다. 이 것이 바로 이벤트 핸들러라고 합니다. 
+// 관련내용은 위로 올라가서 다시 확인을 해보자. 
 
 
 
+{/* <body>
+    <input type="text" name = "number" value = "10"><br/>
+    <input type="text" name = "number" value = "20"><br/>
+    <input type="text" name = "number" value = "30"><br/>
+    <input type="text" name = "number" value = "40"><br/>
+    <input type="text" name = "number" value = "50"><br/>
+    <input type="text" name = "number" value = "0"><br/>
+</body>
+</html>
+<script>
+    let numbers = document.getElementsByName("number");
+    let result = document.getElementsByName("result");
+    // 실제로 같은 이름의 태그가 있는지는 중요하지 않다. name속성은 무조건 배열로 읽어온다. 
+    let sum = 0;
+    numbers.forEach((n)=>{
+        sum += parseInt(n.value);
+    })
+    result[0].value = sum;
+</script> */}
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&Input / &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+// 
+
+{/* <body>
+    x : <input type = "text" name = "xvalue" id = "xvalue"> <br/>  
+    y : <input type = "text" name = "yvalue" id = "yvalue"> <br/>&nbsp;&nbsp;
+    <button type="text" onclick="add()">+</button><br/>&nbsp;&nbsp;
+    <button type="text" onclick="minus()">-</button><br/>&nbsp; &nbsp;
+    <button type="text" onclick="multiply()">*</button><br/>&nbsp; &nbsp;
+    <button type="text" onclick="divide()">/</button><br/>&nbsp; &nbsp;
+    result : <span id="result"></span>
+</body>
+</html>
+<script>
+    function add(){
+        //1. 일단, 데이터를 태그로부터 읽어온다. 
+            x = document.getElementById("xvalue").value;
+            y = document.getElementById("yvalue").value;
+        //2. 연산한다. 
+        let result = 0;
+        result = parseInt(x) + parseInt(y);
+        //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
+        document.getElementById("result").innerHTML = result;
+    }
+    function minus(){
+        //1. 일단, 데이터를 태그로부터 읽어온다. 
+            x = document.getElementById("xvalue").value;
+            y = document.getElementById("yvalue").value;
+        //2. 연산한다. 
+        let result = 0;
+        result = parseInt(x) - parseInt(y);
+        //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
+        document.getElementById("result").innerHTML = result;
+    } 
+    function multiply(){
+        //1. 일단, 데이터를 태그로부터 읽어온다. 
+            x = document.getElementById("xvalue").value;
+            y = document.getElementById("yvalue").value;
+        //2. 연산한다. 
+        let result = 0;
+        result = parseInt(x) * parseInt(y);
+        //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
+        document.getElementById("result").innerHTML = result;
+    }
+    function divide(){
+        //1. 일단, 데이터를 태그로부터 읽어온다. 
+            x = document.getElementById("xvalue").value;
+            y = document.getElementById("yvalue").value;
+        //2. 연산한다. 
+        let result = 0;
+        result = parseInt(x) / parseInt(y);
+        //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
+        document.getElementById("result").innerHTML = result;
+    }
+</script>
+
+ */}
+// 위처럼 쓸 수도 있지만...이렇게 매개변수를 활용할 수도 있다. 
+
+//add(oper)라는 함수에 매개변수를 넣어서 활용하면 한번에 이렇게 계산을 할 수도 있다. 그럼 함수를 다양하게 넣을 수도 있다. 
+// 물론 꼭 이게 좋은 것만은 아니다. 유지보수가 어려워질 수도 있기 때문이다. 
+// 다만, 이러한 방법이 있다는 것은 명확하게 알아야한다. 
+
+// <body>
+//     x : <input type = "text" name = "xvalue" id = "xvalue"> <br/>  
+//     y : <input type = "text" name = "yvalue" id = "yvalue"> <br/>&nbsp;&nbsp;
+//     <button type="text" onclick="add(1)">+</button><br/>&nbsp;&nbsp;  
+//     <button type="text" onclick="add(2)">-</button><br/>&nbsp; &nbsp;
+//     <button type="text" onclick="add(3)">*</button><br/>&nbsp; &nbsp;
+//     <button type="text" onclick="add(4)">/</button><br/>&nbsp; &nbsp;
+//     result : <span id="result"></span>
+// </body>
+// </html>
+// <script>
+//     function add(oper){
+//         //1. 일단, 데이터를 태그로부터 읽어온다. 
+//             x = document.getElementById("xvalue").value;
+//             y = document.getElementById("yvalue").value;
+//         //2. 연산한다.  
+//         let result = 0;
+//         if( oper == "1"){
+//             result = parseInt(x) + parseInt(y);
+//         }else if( oper == "2"){
+//             result = parseInt(x) - parseInt(y);
+//         }else if( oper == "3"){
+//             result = parseInt(x) * parseInt(y);
+//         }else if( oper == "4"){
+//             result = parseInt(x) / parseInt(y);
+//         };
+//         //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
+//         document.getElementById("result").innerHTML = result;
+//     }
+// div Tag는 퍼블리셔만하고, 우리는 보통 이렇게 한다. 
