@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    width : <input type = "text" name = "xvalue" id="xvalue"> <br/>  
+    height : <input type = "text" name = "yvalue" id="yvalue"> <br/>
+    <button type = "result" id="result" onclick="calculate()"> Calculate! </button> <br/> 
+    Area of Rectangle : <span type = "outcome1" id="outcome1"></span><br/>
+    <hr>
+    employee name : <input type = "text" name = "empName" id="empName"> <br/>  
+    Weekly Working Hours : <input type = "text" name = "weeklyWorkingHours" id="weeklyWorkingHours" > <br/>
+    Hourly Wages : <input type = "text" name = "hourlyWage" id="hourlyWage"> <br/>  
+    result2 : <button type = "result2" onclick="calculateYourSalary()" id="result2"> Calculate your salary </button><br/>
+    Your calculated Wage : <span type = "outcome2" id="outcome2"></span><br/>
+    How can I calculate your Salary : <span type="outcome3" id="outcome3"></span><br/>
+</body>
+</html>
+<script>
+    function calculate(){
+        //1. 일단, 데이터를 태그로부터 읽어온다. 
+        x = document.getElementById("xvalue").value;
+        y = document.getElementById("yvalue").value;
+        //2. 연산한다. 
+        let result = 0;
+        result = parseInt(x) * parseInt(y);
+        //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
+        document.getElementById("outcome1").innerHTML = result;
+    }
+
+    function calculateYourSalary(){
+        //1. 일단, 데이터를 태그로부터 읽어온다. 
+        empName = document.getElementById("empName").value;
+        weeklyWorkingHours = document.getElementById("weeklyWorkingHours").value;
+        hourlyWage = document.getElementById("hourlyWage").value;
+        //2. 연산한다. 
+        let weeklySalary = 0;
+        let excessiveWorkingHours = 0;
+        if(weeklyWorkingHours > 20){
+            excessiveWorkingHours = (weeklyWorkingHours - 20);
+        }
+        weeklySalary = (weeklyWorkingHours * hourlyWage) + (excessiveWorkingHours * hourlyWage * 0.5);
+        //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
+        document.getElementById("outcome2").innerHTML = weeklySalary;
+        document.getElementById("outcome3").innerHTML = `<br/> (1) (Weekly Working Hours : ${weeklyWorkingHours} X Your hourly wage${hourlyWage} ) <br/>
+                                        *Plus, if you work more than 20 hours then, remind that you earn 50% more excessive Working hours <br/>
+                                        (2) ExcessiveWorkingWage = ${excessiveWorkingHours} *${hourlyWage} * 0.5 <br/>
+                                        <b>(1) + (2) = ${weeklySalary}</b>`;
+    }
+
+</script>
