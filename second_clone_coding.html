@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <table width="80%">
+        <colgroup>
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>품목</th>
+                <th>가격</th>
+                <th>제조사</th>
+                <th>제조일</th>     
+            </tr>
+        </thead>
+        <tbody id="mytable">
+        </tbody>
+    </table>
+
+    <script>
+        let data = [
+            {"product_name":"새우깡", "product_price":"5000", "manufacturer":"농심", "date":"2023-03-20"},
+            {"product_name":"에이스", "product_price":"7000", "manufacturer":"해태", "date":"2023-03-21"},
+            {"product_name":"오예스", "product_price":"8000", "manufacturer":"오리온", "date":"2023-02-20"},
+            {"product_name":"맛소금팝콘", "product_price":"5000", "manufacturer":"기린", "date":"2023-01-24"},
+            {"product_name":"맛동산", "product_price":"5000", "manufacturer":"해태", "date":"2023-02-27"},
+            {"product_name":"감자깡", "product_price":"5000", "manufacturer":"감자깡", "date":"2023-01-29"}
+        ];
+
+        function loadData()
+        {
+            tbody = document.getElementById("mytable");
+            for(item of data)
+            {
+                var row = tbody.insertRow( tbody.rows.length ); // 하단에 추가
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+
+               cell1.innerHTML = item.product_name;
+                cell2.innerHTML = item.product_price;
+                cell3.innerHTML = item.manufacturer;
+                cell4.innerHTML = item.date;
+            }
+        }
+    
+        loadData();
+    </script>
+
+</body>
+</html>
