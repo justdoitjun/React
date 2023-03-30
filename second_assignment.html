@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>성적관리 프로그램</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <h1>성적관리 프로그램</h1>
+  <form>
+    <label for="name">이름:</label>
+    <input type="text" id="name" name="name"><br><br>
+    <label for="kor">국어:</label>
+    <input type="number" id="kor" name="kor" min="0" max="100"><br><br>
+    <label for="eng">영어:</label>
+    <input type="number" id="eng" name="eng" min="0" max="100"><br><br>
+    <label for="math">수학:</label>
+    <input type="number" id="math" name="math" min="0" max="100"><br><br>
+    <input type="button" id="calculate" value="결과확인">
+  </form>
+  <div id="result"></div>
+  <script>
+    $(document).ready(function() {
+      $('#calculate').click(function() {
+        // 입력값 가져오기
+        var name = $('#name').val();
+        var kor = parseInt($('#kor').val());
+        var eng = parseInt($('#eng').val());
+        var math = parseInt($('#math').val());
+
+        // 입력값 유효성 체크
+        if (isNaN(kor) || isNaN(eng) || isNaN(math)) {
+          alert('입력값을 모두 입력해주세요.');
+          return;
+        }
+
+        if (kor < 0 || kor > 100 || eng < 0 || eng > 100 || math < 0 || math > 100) {
+          alert('입력값은 0부터 100 사이어야 합니다.');
+          return;
+        }
+
+        // 총점, 평균 계산
+        var sum = kor + eng + math;
+        var avg = sum / 3;
+
+        // 결과 출력
+        $('#result').html(name + '의 총점은 ' + sum + '이고, 평균은 ' + avg.toFixed(2) + '입니다.');
+      });
+    });
+  </script>
+</body>
+</html>
