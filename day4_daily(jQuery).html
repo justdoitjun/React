@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    width : <input type = "text" id="xvalue"> <br/>  
+    height : <input type = "text" id="yvalue"> <br/>
+    <button type = "result" id="resultArea"> Calculate! </button> <br/> 
+    Area of Rectangle : <span type = "outcome1" id="outcome1"></span><br/>
+    <hr>
+    employee name : <input type = "text" name = "empName" id="empName"> <br/>  
+    Weekly Working Hours : <input type = "text" name = "weeklyWorkingHours" id="weeklyWorkingHours" > <br/>
+    Hourly Wages : <input type = "text" name = "hourlyWage" id="hourlyWage"> <br/>  
+    result2 : <button type = "result2" id="result2"> Calculate your salary </button><br/>
+    Clear all : <button type = "clearAll" id="clear"> Clear All! </button><br/>
+    Your calculated Wage : <span type = "outcome2" id="outcome2"></span><br/> 
+</body>
+</html>
+<script>
+    $(document).ready(()=>{
+        $("#resultArea").click(()=>{
+            x = parseInt($("#xvalue").val());
+            y = parseInt($("#yvalue").val());
+            result = x * y;
+            $("#outcome1").html(result);
+        })
+    })
+    $(document).ready(()=>{
+        $("#result2").click(()=>{
+        //1. 일단, 데이터를 태그로부터 읽어온다. 
+        empName = parseInt($("#empName").val());
+        weeklyWorkingHours = parseInt($("#weeklyWorkingHours").val());
+        hourlyWage = parseInt($("#hourlyWage").val());
+        //2. 연산한다. 
+        let excessiveWorkingHours = 0;
+        if(weeklyWorkingHours > 20){
+            excessiveWorkingHours = (weeklyWorkingHours - 20);
+        }
+        weeklySalary = (weeklyWorkingHours * hourlyWage) + (excessiveWorkingHours * hourlyWage * 0.5);
+        //3. 출력한다. result로 받은 것을 innerHTML(left side) toss
+        $("#outcome2").html(weeklySalary);
+        })
+    })
+    $(document).ready(()=>{
+        $("#clear").click(()=>{
+            $("#outcome2").html('');
+        })
+    })
+</script>
