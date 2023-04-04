@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Third-Assignment</title>
+    <script
+  src="https://code.jquery.com/jquery-3.6.4.js" 
+  integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- <form action = "/score" name = "myform"> -->
+    <form name = "myform">
+        이름 : <input type = "text" name = "name" id = "name"><br/>
+        국어 : <input type = "text" name = "kor" id = "kor"><br/>
+        영어 : <input type = "text" name = "eng" id = "eng"><br/>
+        수학 : <input type = "text" name = "mat" id = "mat"><br/>
+        <button type = "button" id = "btnCalc">계산</button><br/>
+        총점 : <input type = "text" name = "total" id = "total" readonly>&nbsp;
+        평균 : <input type = "text" name = "avg" id = "avg" readonly>
+    </form>
+</body>
+</html>
+<script>
+    let btnCalc = document.getElementById("btnCalc");
+    btnCalc.addEventListener("click", () => {
+        //document.myform.submit();
+    let name = document.getElementById("name").value;
+    let kor = document.getElementById("kor").value;
+    let eng = document.getElementById("eng").value;
+    let mat = document.getElementById("mat").value;
+    let url = "/score?name=" + name + "&kor=" + kor + "&eng=" + eng + "&mat=" + mat;
+    $.get(url, function(data) { //웹에 뿌려주자. 
+       // console.log(data)       //생략해도 됨. 되는지 볼려고 해봄. 
+        $('#total').val(data.total); //데이터(send받은 JSON파일)의 Key값에 접근해라.//
+        $('#avg').val(data.avg);    //데이터(send받은 JSON파일)의 Key값에 접근해라. 
+    });    
+    })
+
+// 연산 순서
+// 1. 클라이언트(웹)에서 정보를 입력하고 버튼을 누르면 js파일에서 app.use/scoreform에 요청을 보냄
+// 2. 서버(third_assignment.js)의 "/scoreform"이 호출됨. 
+// 3. 동시에 btnCalc 함수가 동작하고 url이 만들어짐 ("/score?"로 시작)  
+// 즉, /scoreform 도 /score? 이기 때문에 결국 /scoreform이 돌아가면, /score도 돌아감. 
+// 4. 이에 서버측의 "/score"이 호출되어 total, avg를 연산
+// 연산이 완료되었으니 결국 이걸 웹에 뿌려줘야함. 그 함수가 res.send({})임. 
+// 그럼 웹은 서버단에서 send를 받기는 했지만(받는 형식 JSON 배열임), 이를 웹에 어떻게 뿌리는지는 웹에 연결된 script파일이 결정함. 
+// 5. 해당 웹 상 자바스크립트는 (정확하게는 제이쿼리 형식상) $.get은 total, avg값을 반환해줌
+// 5'. json으로 들어온 {total:total, avg:avg}는 key:value! (사실 당연한 것이 json도 map 배열) -자바에선 hashmap같은 존재.
+// 따라서 data JSON의 키를 호출하기 위해선 data.total, data.avg로 호출하고 대입해야함. 
+// 6. json대신 ``으로 출력할 경우 값이 총점, 평균 input란에 들어가지 않음.
+</script>
