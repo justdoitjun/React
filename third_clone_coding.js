@@ -32,7 +32,7 @@ app.get("/view/:id", (request, response)=>{
     response.render('guestbook/view', {"title" : "게시판상세화면", 
                 "guestbook" : guestbookList[id]});
 });
-
+// 클론 코딩에는 화살표함숙 아니지만, 람다식을 사용해보고 싶엇 람다식으로 교체했습니다. 
 app.get("/write",(request, response)=>{
     response.render('guestbook/write');
 });
