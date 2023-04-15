@@ -1,0 +1,262 @@
+//마지막으로 정리를 해보고자 함.
+
+
+//리액트 수업중에서 배운 것은 사실, 리액트 언어를 얼만 잘하냐보다도
+앞단고 뒷단이 어떻게 연결되는지를 많이 배웠음. 
+// 앞으로 프로젝트를 할 때 더더욱 문젝 많이 생길텐데 이 때 어떻게 할지 연습을 해보는 것은 중요한 것 같아.
+
+
+ 연결이 안됩니다. 
+-> 대부분의 문제는 ajax에서 생깁니다. 코드가 길기 때문이죠.
+하지만, 일단은 큰 줄기부터 봅시다.
+1. DB단에서 postman으로 get, post 해보세요.
+잘 안되면 백엔드 문제입니다.(보통 이부분이 안되는 경우는 없음)
+
+2. 앞단에서 뭔가가 안될 때는 원천부터 올라가지 말고...
+결과부터 원천으로 올라가보면 편합니다.
+
+2-1. console.log(res.data)등으로 일단 data가 받아지고 있는지 보세요.
+data가 제대로 오는데 화면에 안 뿌려지는 경우라면 <html 혹은 ejs 혹은 리액트의 경우 return> 부분이 오타가 있거단 뭔가 코드가 안뿌려지는 경우입니다.
+
+2-2. console.log(res.data)가 안잡히는 경우는 JSON 형태로 봤을 때 
+내가 제대로 데이터 껍질을 깠는지 확인해보세요. 2번 까야하는데 1번만 깐 건 아닌지?
+
+2-3. 
+
+
+
+# 리액트 환경설정 
+```
+/////////리액트로 프로젝트를 할 때 먼저 해줘야할 환경설정
+
+//원하는 폴더로 이동한다. (주의사항 : 프로젝트 안에 프로젝트 만들지 말 것...! myhome1에 또 myhome2 만드는 실수 ) 
+   cd desktop/java/....등등등
+
+create-react-app 프로젝트명
+     create-react-app myhome1
+
+// cd 생성한 프로젝트명 
+     cd myhome1
+
+// 리액트 3대장 설치할 것.    
+1. axios(리액트의 ajax판 = ajax랑 똑같다고 생각하면 됨.)
+     npm install axios
+2. react-router-dom (router로 서버단 연결해서 get, post 하게 해주는 애들) 
+     npm install react-router-dom 
+3. react bootstrap (아마 css 편하게 해줄려고 까는 거 같음. w3schools에서 만든 거 같음)
+     npm install bootstrap
+
+// 다 설치를 했다면, package.json에 버전이 잘 맞는지를 확인할 것. (스프링도 비슷함. 자바 버전이랑 잘 맞는지 확인하듯)
+// 그리고 이제 우리가 설치한 친구들을 꽂아서 써야하니깐, 일단 index.js에 reac-router-dom을 심어줄 것. 
+import { BrowserRouter } from 'react-router-dom'; 
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <BrowserRouter>
+    <App/>
+  </BrowserRouter>
+)
+// App.js에 들어가서 환경설정 import Router를 해줘서 Router를 꽂아서 쓰자! 
+import { Routes, Route, Outlet, Link } from 'react-router-dom';
+function App() {
+      return(
+        <div className="App">
+          <h1> April 13th 2023 Drill </h1>
+          {
+          /* path= 가상 url 이고, element는 컴포넌트입니다. */
+          }
+          <Routes>
+            <Route path="/" element={<Layout/>}>
+            {/* 전체적인 Router 골격은 Layout 컴포넌트에 둘 것이므로 Layout is kind of homepage.*/}
+                <Route index element={<Home/>}/>
+            </Route>
+          </Routes>
+        </div>
+      )
+}
+
+```
+
+# 공부는 어떻게?
+App.js를  여러번 보세요.
+
+
+
+
+## import 
+```
+import 클래스명은...
+import React 이렇게 쓰고
+import 함수명은...
+import {useState}는 이렇게 씀
+```
+
+## anchor 태그를 쓰지말고, navLink를 애용하세요.
+
+```
+<li className="nav-item">
+     <a className="nav-link active" href="#">Active</a>
+</li>
+```
+
+보단
+```
+<li className="nav-item">
+          <NavLink className="nav-link active" to="/Home=">Active</NavLink>
+ </li>
+```
+### Problem : 왜 그럴까요? 
+앵커태그는 페이지 전체를 바꾸기 때문입니다. 
+
+
+#  백엔드와 프론트엔드
+```
+frontEnd - 화면 UI, 디자인
+		input 사용자 입력을 받아서 ----> Axios(Ajax라이브러리) 
+
+BackEnd - 자바나 노드 기반의 Express다.
+		db 서버에 붙어서 데이터만 읽고 쓰고 온다. 
+
+frontEnd가 heroList를 Axios를 부른다. 
+호출된 Axios는 backEnd에 요청을 하면, 서버는 데이터를 일어와서
+json타입으로 가공한 후, axios가 프론트로 json을 들고 감
+
+frontEnd ------Axios-----BackEnd
+
+
+```
+
+
+## 리액트가 구동되는 방식
+```
+index.js --> app.js --> layout.js
+```
+
+## Router
+```
+내 생각엔… 이번 백현숙 선생님의 강의에서 내 나름대로 정리한 요점은...
+
+1. Router = 행선지를 정해주는 우체국. (서버로 보낼지…post DB에 넣자.. get..Web에서 가져오자… 등등) 
+2. ajax (React에선 axios라고 부름. 정확하겐 axios가 리액트에서 ajax 라이브러이이니깐 ajax가 더 broad한 개념) 
+= ajax는 우체부. 데이터가 담긴 JSON을 들고 웹으로 가거나 서버로 가거나
+3. JSON = 택배상자 (모양이 Map임. {Key: Value} ) 
+따라서, JSON 자체는 그냥 데이터를 담는 그릇. 택배상자일 뿐임. 
+4. 비동기 = 새로고침 안해도 웹에 정보가 뜸! 
+5. async = 비동기붙일 수 있고, async가 있음 await가 따라다님…
+6. CORS = 네이버 포털에서 카카오 포털 서버로 ajax 우체부를 보낼 수는 없음. 
+하지만, 방구석 여포 개발자는 cors가 필요없으니(localhost) 로컬에서는 다 허용해줘도 됨. 
+7. 가장 중요한데 헛갈리는 우체부!!! 어려운 우체부!! ajax는 어떻게 사용하지?
+<최종정리 = 아래 사례 읽어보고 이렇게 기억>
+1. 3단구조 만들면 됨!!
+ajax.성공.실패
+제이쿼리 : ajax.done.fail
+리액트 : async function{ await axios.메소드().then.catch }
+
+7-1.기본틀1. 제이쿼리에선...  ==> ajax.done.fail 3단구조!!
+정리하자면, 제이쿼리는 script 태그에 
+document.ready해주고, $.ajax().done().fail()
+<script>
+    $(document).ready(()=>{
+        $("#btnAdd").click(()=>{
+            $.ajax({
+                url : "/ajax/add",
+                data : {"x":$("x").val(), "y":$("y").val()}
+                dataType : "json" 
+//결과는 JSON 형태로 반환받겠습니다. 
+            })  //url과 data는 이미 정햊니...JSON 형태임..
+            .done((res,status,error)=>{
+               $("#result").val(res.result);
+            })// ajax가 배달에 성공했어!(코드 : 300)
+				// (서버와 통신이 성공하여 데이터를 가져왔을 때)
+            .fail((res,status,error)=>{
+                console.log(status); // 왜 에러가 났는지를 확인해봄. 
+            })// ajax가 배달에 실팼어!!(코드 : 400번대 / 500번대)
+// 400번대 : 서버문제임 500번대 : 문법틀렸을 가능성이 높음(오타)
+//(서버와 통신이 실패하여 데이터를 가지고 오지 못했을 때 )
+        })  
+    })
+</script>
+
+
+7- 기본틀2. 그렇다면 리액트에선? ==> async 함수 안 3단구조
+정리하자면, async 함수 안에 axios.메소드(url).then(res->).catch(error->) 이렇게 씀
+    async function loadData(){
+      const url = serverIP + "/hero/list";
+      await axios.get(url)
+      .then((res)=>{
+        setBoardList(res.data);
+        setLoading(true);
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+
+8. 택배상자 JSON은 어떻게 쓰는 거야?
+<딱 한마디로 정리하자면>
+배열이 Map을 감싸고 있고, JSON이라는 택배상자를 열려면 열쇠(Key)가 필요해.
+말 그대로 Key값. (백엔드에서 Key값을 찾아야지)
+[{}]
+이 구조라는 것을 기억해...!
+배열이 Map을 감싸고 있다고...! 
+그래서...가끔 이런 경우가 있어.. 분명 데이터를 나는 가져왔는데 그것도 하나밖에 안되는데! 왜 두번 depth를 들어가야할까?
+
+            setHeroName(results.data.hero.hero_name);
+
+이렇게 말야...! 내 생각엔 data.hero_name으로 끝날 거 같은데
+그 이유는 보통 우리가 데이터를 보낼 때
+ 		 res.render("board/board_view", { hero : heroItem });
+이런식으로 JSON 형태로 보내기 때문이야.
+data 의 형태는 배열로 되어있지만, 우리는 배열을 깠지만 JSON이라는 택배상자가 남아있단 말야. JSON 택배상자를 까기 위한 방법은 열쇠가 필요함 (Key값)
+여기에선 Key값이 hero라고 지정되어있으니...! hero라는 열쇠로 열어야해.
+
+
+
+8.(지엽) 3항연산자를 쓸 때도 있는 듯. 근데 이것도 결국은 
+ajax.성공.실패 3단구조랑 똑같음!
+```
+
+
+##  개발절차
+
+```
+1. 기획문서 --> 기획자 업무분석서, 기획서
+2. 테이블 설계 --> ERWin (툴) 등을 통해서 테이블 설계
+3. 프론트엔드와 백엔드 간에 데이터를 주고 받는 문서 = API 설계서
+		(1) 요청정보 request (2) 응답 response  
+4. 웹 디자이너가 화면 디자인을 하면, 백엔드는 혼자 뒤에서 만들고 있으면 됨. ==> 화면 html 태그로 바꿔주는 사람이 있음....(코더 또는 퍼블리셔라고 부름 : 재택가능)
+5. 백엔드 프론트엔드 개발이 각자 되고 중간에 각자 test를 함.
+ a) 백엔드 개발자는 postman으로 test를 해가면서 만들고...
+ b) 프론트엔드 개발자는 json 데이터를 본인들이 만들어서 각자 개발하면 됨...(EJS 처럼).  : ex) JSON Server 파일
+ c) JSON들이 모인 파일을 프론트는 던지고 받아보면서 test해봄.
+6. 하루의 마감은 반드시 보고서를 문서로 작성해서 메일 보내고 조서화할 것. 
+(무조건 문서로 사수 믿지 말고)
+
+Promise --> 동기를 비동기로 쉽게 만들 수 있는 객체
+async --> Promise를 쉽게 만들게 하려고
+async랑 awiat는 짝궁임. --> 비동기를 동기처럼 사용
+
+
+비동기는 Promise를 안쓰면 이렇게 할 수 있다. 아주 간단한 것도 코드가 너무 길다.
+connection.execute(sql, [], ()=>{
+    connection.execute(sql, [], ()=>{
+        connection.exectue(sql, [], ()=>{
+            res.json({result : "success"});
+            return;
+        })
+        res.json({result : "fail"});
+        return;
+    })
+    res.json({result:"fail"}); 
+    return;
+});
+res.json({result : "fail"});
+
+이 내용을... Promise async await를 쓰면 이렇게 된다.
+let result = await connection.execute(sql, []);
+if (result == undefined){
+    res.json({result : "fail"});
+    return;
+}
+이렇게 바꿀 수 있도록 
+
+
+```
